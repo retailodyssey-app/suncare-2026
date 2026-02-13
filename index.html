@@ -661,6 +661,302 @@ body {
   .facing-info .card-name { -webkit-line-clamp: 3; line-clamp: 3; }
 }
 
+/* ===== SMALL MOBILE OPTIMIZATION — image-first layout ===== */
+
+/* Small phones (under 480px wide) */
+@media (max-width: 480px) {
+  /* --- Compact header: single row, minimal padding --- */
+  .header {
+    padding: 6px 10px;
+  }
+  .header h1 {
+    font-size: 12px;
+  }
+  .header .subtitle {
+    font-size: 9px;
+    margin-top: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 52vw;
+  }
+  .pog-info {
+    font-size: 8px;
+    line-height: 1.3;
+  }
+  .change-display-btn {
+    display: none;
+  }
+
+  /* --- Compact mode tabs --- */
+  .mode-tabs {
+    padding: 4px 10px 4px;
+    gap: 4px;
+    top: 44px;
+  }
+  .mode-tab {
+    padding: 6px 4px;
+    font-size: 11px;
+    gap: 4px;
+  }
+  .mode-tab svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  /* --- Search bar repositioned --- */
+  .search-bar {
+    top: 80px;
+    padding: 4px 10px 6px;
+  }
+
+  /* --- Compact filter bar --- */
+  .filter-bar {
+    padding: 2px 2px 4px;
+    gap: 4px;
+  }
+  .filter-chip {
+    padding: 3px 8px;
+    font-size: 10px;
+  }
+
+  /* --- Browse: tighten padding --- */
+  .browse-section {
+    padding: 0 4px 64px;
+  }
+
+  /* --- Shelf headers: compact --- */
+  .shelf-header {
+    font-size: 10px;
+    padding: 4px 4px 3px;
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+  }
+  .shelf-section {
+    margin-bottom: 8px;
+  }
+
+  /* --- HIDE TEXT below product images for image-first view --- */
+  .facing-info {
+    padding: 1px 2px 2px;
+  }
+  .facing-info .card-name {
+    font-size: clamp(5px, 1.4vw, 9px);
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+  }
+  .facing-info .card-meta {
+    margin-top: 0;
+  }
+  .facing-info .card-upc {
+    display: none;
+  }
+  .facing-info .card-pos {
+    font-size: clamp(4px, 1.1vw, 7px);
+  }
+
+  /* --- Product cards: less border/gap overhead --- */
+  .facing-group-wrap {
+    padding: 0;
+  }
+  .facing-group {
+    border-radius: 4px;
+    border-width: 1px;
+  }
+
+  /* --- Badges: smaller --- */
+  .mini-badge {
+    font-size: clamp(4px, 0.9vw, 7px);
+    padding: 0px 3px;
+  }
+  .facing-badge-row {
+    margin-top: 1px;
+    gap: 1px;
+  }
+
+  /* --- Bottom nav: shorter --- */
+  .bottom-nav {
+    height: 44px;
+    padding: 0 16px;
+    gap: 6px;
+  }
+  .nav-side-btn {
+    width: 40px;
+    height: 32px;
+    font-size: 16px;
+    border-radius: 8px;
+  }
+  .scroll-top {
+    bottom: 52px;
+    width: 34px;
+    height: 34px;
+    font-size: 16px;
+  }
+}
+
+/* Very small phones (under 380px wide, e.g. iPhone SE, Galaxy A series) */
+@media (max-width: 380px) {
+  .header {
+    padding: 4px 8px;
+  }
+  .header h1 {
+    font-size: 11px;
+  }
+  .header .subtitle {
+    font-size: 8px;
+    max-width: 46vw;
+  }
+  .pog-info {
+    font-size: 7px;
+  }
+  .mode-tabs {
+    padding: 3px 8px 3px;
+    top: 38px;
+  }
+  .mode-tab {
+    padding: 5px 2px;
+    font-size: 10px;
+    gap: 3px;
+    border-radius: 6px;
+  }
+  .mode-tab svg {
+    width: 11px;
+    height: 11px;
+  }
+  .search-bar {
+    top: 70px;
+  }
+
+  /* Hide text entirely — images only */
+  .facing-info {
+    display: none;
+  }
+  .facing-badge-row {
+    display: none;
+  }
+
+  /* Maximize image space */
+  .facing-img-slot::before {
+    padding-top: 105%;
+  }
+  .facing-img-slot img {
+    max-height: 94%;
+    max-width: 94%;
+  }
+
+  .browse-section {
+    padding: 0 2px 52px;
+  }
+  .shelf-header {
+    font-size: 9px;
+    padding: 3px 2px 2px;
+    margin-bottom: 2px;
+  }
+  .shelf-section {
+    margin-bottom: 4px;
+  }
+
+  .bottom-nav {
+    height: 40px;
+    gap: 5px;
+    padding: 0 12px;
+  }
+  .nav-side-btn {
+    width: 36px;
+    height: 28px;
+    font-size: 14px;
+    border-width: 1px;
+  }
+  .scroll-top {
+    bottom: 46px;
+  }
+}
+
+/* Short screens (landscape or very short phones) — reclaim vertical space */
+@media (max-height: 700px) and (max-width: 480px) {
+  .header {
+    padding: 3px 8px;
+  }
+  .header h1 {
+    font-size: 11px;
+  }
+  .header .subtitle {
+    display: none;
+  }
+  .pog-info {
+    font-size: 7px;
+  }
+  .change-display-btn {
+    display: none;
+  }
+  .mode-tabs {
+    padding: 2px 8px;
+    top: 30px;
+  }
+  .mode-tab {
+    padding: 4px 2px;
+    font-size: 10px;
+  }
+  .search-bar {
+    top: 60px;
+    padding: 2px 8px 4px;
+  }
+  .facing-info {
+    display: none;
+  }
+  .facing-badge-row {
+    display: none;
+  }
+  .facing-img-slot::before {
+    padding-top: 100%;
+  }
+  .bottom-nav {
+    height: 36px;
+  }
+  .nav-side-btn {
+    width: 34px;
+    height: 26px;
+    font-size: 13px;
+  }
+}
+
+/* Result overlay: larger image on small screens */
+@media (max-width: 480px) {
+  .result-overlay {
+    padding: 10px 8px;
+  }
+  .result-image-wrap {
+    min-height: 180px;
+  }
+  .result-image-wrap img {
+    max-height: 260px;
+    max-width: 95%;
+  }
+  .result-body {
+    padding: 14px;
+  }
+  .result-name {
+    font-size: 16px;
+  }
+  .location-grid {
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+  .loc-item {
+    padding: 8px;
+  }
+  .loc-label {
+    font-size: 9px;
+  }
+  .loc-value {
+    font-size: 18px;
+  }
+  .mini-pog {
+    padding: 8px;
+    margin-bottom: 8px;
+  }
+}
+
 /* Store Selector Screen */
 .selector-screen {
   min-height: 100dvh;
