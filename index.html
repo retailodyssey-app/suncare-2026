@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
 <title>Suncare POG Lookup</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
@@ -1283,6 +1283,223 @@ body {
   opacity: 0.3;
   pointer-events: none;
 }
+
+/* ===== ACCESSIBILITY & RESPONSIVE IMPROVEMENTS ===== */
+
+/* Minimum touch target sizes (WCAG 2.5.8 - 44x44px) */
+.filter-chip {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.mode-tab {
+  min-height: 44px;
+}
+.nav-side-btn {
+  min-width: 44px;
+  min-height: 44px;
+}
+.pdf-toolbar-btn {
+  min-width: 44px;
+  min-height: 44px;
+}
+.pdf-search-nav-btn {
+  min-width: 44px;
+  min-height: 44px;
+}
+.pdf-nav-btn {
+  min-height: 48px;
+}
+.search-btn {
+  min-width: 48px;
+  min-height: 44px;
+}
+.scanner-controls button {
+  min-height: 44px;
+  min-width: 44px;
+}
+.change-display-btn {
+  min-height: 36px;
+  padding: 6px 12px;
+}
+
+/* Focus visible outlines for keyboard navigation */
+.mode-tab:focus-visible,
+.filter-chip:focus-visible,
+.nav-side-btn:focus-visible,
+.pdf-toolbar-btn:focus-visible,
+.pdf-nav-btn:focus-visible,
+.search-btn:focus-visible,
+.selector-go-btn:focus-visible,
+.change-display-btn:focus-visible,
+.result-close:focus-visible,
+.pdf-close-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* PDF toolbar responsive: wrap on small screens */
+@media (max-width: 480px) {
+  .pdf-toolbar {
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 6px 8px;
+    min-height: auto;
+  }
+  .pdf-title {
+    font-size: 11px;
+    order: 1;
+    flex: 1;
+    min-width: 0;
+  }
+  .pdf-close-btn {
+    order: 0;
+  }
+  .pdf-toolbar-spacer {
+    display: none;
+  }
+  .pdf-page-info {
+    order: 2;
+    font-size: 10px;
+  }
+  .pdf-toolbar-btn {
+    min-width: 40px;
+    min-height: 40px;
+    width: 40px;
+    height: 40px;
+  }
+  .pdf-zoom-level {
+    font-size: 10px;
+    min-width: 36px;
+  }
+  .pdf-search-bar {
+    padding: 4px 8px;
+    gap: 4px;
+  }
+  .pdf-search-bar input {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+  .pdf-search-count {
+    font-size: 10px;
+    min-width: 44px;
+  }
+  .pdf-nav-bar {
+    padding: 6px 12px;
+    gap: 6px;
+  }
+  .pdf-nav-btn {
+    font-size: 13px;
+    padding: 10px 8px;
+  }
+}
+
+/* Ensure Change Store is always visible on mobile */
+@media (max-width: 480px) {
+  .change-display-btn {
+    display: inline-flex !important;
+    font-size: 9px;
+    padding: 4px 8px;
+    min-height: 32px;
+    align-items: center;
+  }
+}
+@media (max-width: 380px) {
+  .change-display-btn {
+    display: inline-flex !important;
+    font-size: 8px;
+    padding: 3px 6px;
+    min-height: 28px;
+  }
+}
+
+/* Result overlay responsive - full screen on mobile */
+@media (max-width: 480px) {
+  .result-card {
+    max-width: 100%;
+    border-radius: 12px;
+  }
+  .result-close {
+    top: 8px;
+    right: 8px;
+    width: 44px;
+    height: 44px;
+    z-index: 10;
+  }
+}
+
+/* Prevent text size adjust on rotation */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* PDF viewer pinch-to-zoom: disable native touch-action on canvas container */
+.pdf-canvas-container.pinch-active {
+  touch-action: none;
+}
+.pdf-canvas-container {
+  touch-action: pan-x pan-y;
+}
+
+/* Zoom indicator toast */
+.pdf-zoom-toast {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  background: rgba(14,17,23,0.92);
+  backdrop-filter: blur(12px);
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent);
+  z-index: 400;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+  font-family: 'JetBrains Mono', monospace;
+}
+.pdf-zoom-toast.visible {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Tablet/Desktop: wider result card */
+@media (min-width: 768px) {
+  .result-card {
+    max-width: 500px;
+  }
+  .result-image-wrap img {
+    max-height: 300px;
+  }
+  .browse-section {
+    padding: 0 24px 80px;
+  }
+  .header {
+    padding: 12px 24px;
+  }
+  .mode-tabs {
+    padding: 10px 24px 8px;
+  }
+}
+
+/* Large desktop */
+@media (min-width: 1200px) {
+  .browse-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 32px 80px;
+  }
+  .header, .mode-tabs, .search-bar {
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
 </style>
 </head>
 <body>
@@ -1323,16 +1540,16 @@ body {
   <button class="change-display-btn" onclick="showSelector()">↩ Change Store</button>
 </div>
 
-<div class="mode-tabs">
-  <div class="mode-tab active" data-mode="browse" onclick="setMode('browse')">
+<div class="mode-tabs" role="tablist" aria-label="Navigation modes">
+  <div class="mode-tab active" data-mode="browse" onclick="setMode('browse')" role="tab" aria-selected="true" tabindex="0">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
     Browse
   </div>
-  <div class="mode-tab" data-mode="scan" onclick="setMode('scan')">
+  <div class="mode-tab" data-mode="scan" onclick="setMode('scan')" role="tab" aria-selected="false" tabindex="0">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7V5a2 2 0 012-2h2M17 3h2a2 2 0 012 2v2M21 17v2a2 2 0 01-2 2h-2M7 21H5a2 2 0 01-2-2v-2"/><line x1="7" y1="12" x2="17" y2="12"/></svg>
     Scan
   </div>
-  <div class="mode-tab" data-mode="manual" onclick="setMode('manual')">
+  <div class="mode-tab" data-mode="manual" onclick="setMode('manual')" role="tab" aria-selected="false" tabindex="0">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
     UPC
   </div>
@@ -1340,7 +1557,7 @@ body {
 
 <div class="search-bar" id="search-bar" style="display:none;">
   <div class="search-input-wrap">
-    <input type="text" id="upc-input" inputmode="numeric" placeholder="Search UPC (full or last 4+ digits)..." maxlength="14">
+    <input type="text" id="upc-input" inputmode="numeric" placeholder="Search UPC (full or last 4+ digits)..." maxlength="14" aria-label="Search products by UPC code" autocomplete="off">
     <button class="search-btn" onclick="lookupUPC()">GO</button>
   </div>
   <div class="search-results" id="search-results"></div>
@@ -1367,26 +1584,27 @@ body {
   <div id="shelf-container"></div>
 </div>
 
-<div class="result-overlay" id="result-overlay">
-  <button class="result-close" onclick="closeResult()">✕</button>
+<div class="result-overlay" id="result-overlay" role="dialog" aria-label="Product detail" aria-modal="true">
+  <button class="result-close" onclick="closeResult()" aria-label="Close product detail">✕</button>
   <div class="result-card" id="result-card"></div>
+</div>
 
-<!-- PDF Viewer Overlay -->
-<div class="pdf-overlay" id="pdf-overlay">
-  <div class="pdf-toolbar">
-    <button class="pdf-toolbar-btn pdf-close-btn" onclick="closePdfViewer()" title="Close">✕</button>
+<!-- PDF Viewer Overlay (independent from result overlay) -->
+<div class="pdf-overlay" id="pdf-overlay" role="dialog" aria-label="PDF Viewer" aria-modal="true">
+  <div class="pdf-toolbar" role="toolbar" aria-label="PDF controls">
+    <button class="pdf-toolbar-btn pdf-close-btn" onclick="closePdfViewer()" title="Close" aria-label="Close PDF viewer">✕</button>
     <div class="pdf-title" id="pdf-title">PDF Viewer</div>
     <div class="pdf-toolbar-spacer"></div>
     <div class="pdf-page-info" id="pdf-page-info">1 / 1</div>
-    <button class="pdf-toolbar-btn" onclick="pdfZoomOut()" title="Zoom Out">−</button>
-    <span class="pdf-zoom-level" id="pdf-zoom-level">100%</span>
-    <button class="pdf-toolbar-btn" onclick="pdfZoomIn()" title="Zoom In">+</button>
+    <button class="pdf-toolbar-btn" onclick="pdfZoomOut()" title="Zoom Out" aria-label="Zoom out">−</button>
+    <span class="pdf-zoom-level" id="pdf-zoom-level" aria-live="polite">100%</span>
+    <button class="pdf-toolbar-btn" onclick="pdfZoomIn()" title="Zoom In" aria-label="Zoom in">+</button>
   </div>
   <div class="pdf-search-bar">
-    <input type="text" id="pdf-search-input" placeholder="Search in PDF..." oninput="pdfSearchDebounce()">
-    <span class="pdf-search-count" id="pdf-search-count"></span>
-    <button class="pdf-search-nav-btn" onclick="pdfSearchPrev()" title="Previous">▲</button>
-    <button class="pdf-search-nav-btn" onclick="pdfSearchNext()" title="Next">▼</button>
+    <input type="text" id="pdf-search-input" placeholder="Search in PDF..." oninput="pdfSearchDebounce()" aria-label="Search within PDF">
+    <span class="pdf-search-count" id="pdf-search-count" aria-live="polite"></span>
+    <button class="pdf-search-nav-btn" onclick="pdfSearchPrev()" title="Previous match" aria-label="Previous search match">▲</button>
+    <button class="pdf-search-nav-btn" onclick="pdfSearchNext()" title="Next match" aria-label="Next search match">▼</button>
   </div>
   <div class="pdf-canvas-container" id="pdf-canvas-container">
     <div class="pdf-loading" id="pdf-loading">
@@ -1397,21 +1615,19 @@ body {
     <div class="pdf-search-highlights" id="pdf-search-highlights"></div>
   </div>
   <div class="pdf-nav-bar">
-    <button class="pdf-nav-btn" id="pdf-prev-btn" onclick="pdfPrevPage()">‹ Prev</button>
-    <button class="pdf-nav-btn" id="pdf-next-btn" onclick="pdfNextPage()">Next ›</button>
+    <button class="pdf-nav-btn" id="pdf-prev-btn" onclick="pdfPrevPage()" aria-label="Previous page">‹ Prev</button>
+    <button class="pdf-nav-btn" id="pdf-next-btn" onclick="pdfNextPage()" aria-label="Next page">Next ›</button>
   </div>
 </div>
 
-</div>
-
-<button class="scroll-top" id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<button class="scroll-top" id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">↑</button>
 
 <!-- Bottom Nav Bar -->
-<nav class="bottom-nav" id="bottom-nav">
-  <div class="nav-side-btn active" data-seg="1" onclick="setSegment(1)">1</div>
-  <div class="nav-side-btn" data-seg="2" onclick="setSegment(2)">2</div>
-  <div class="nav-side-btn" data-seg="3" onclick="setSegment(3)">3</div>
-  <div class="nav-side-btn" data-seg="4" onclick="setSegment(4)">4</div>
+<nav class="bottom-nav" id="bottom-nav" aria-label="Bay navigation">
+  <button class="nav-side-btn active" data-seg="1" onclick="setSegment(1)" aria-label="Side 1" role="tab" aria-selected="true">1</button>
+  <button class="nav-side-btn" data-seg="2" onclick="setSegment(2)" aria-label="Side 2" role="tab" aria-selected="false">2</button>
+  <button class="nav-side-btn" data-seg="3" onclick="setSegment(3)" aria-label="Side 3" role="tab" aria-selected="false">3</button>
+  <button class="nav-side-btn" data-seg="4" onclick="setSegment(4)" aria-label="Side 4" role="tab" aria-selected="false">4</button>
 </nav>
 
 <!-- Bay change toast -->
@@ -1419,6 +1635,9 @@ body {
 
 <!-- Swipe edge indicator -->
 <div class="swipe-edge-indicator" id="swipe-edge"></div>
+
+<!-- PDF Zoom toast for pinch gestures -->
+<div class="pdf-zoom-toast" id="pdf-zoom-toast"></div>
 
 </div><!-- /app-content -->
 <script>
@@ -2553,6 +2772,209 @@ function showSelector() {
     opt.textContent = 'Store ' + s;
     sel.appendChild(opt);
   });
+})();
+
+// ==================== BACK BUTTON / HISTORY MANAGEMENT ====================
+// Prevents the back button from exiting the app — instead navigates back through app states
+
+(function() {
+  // Push initial state
+  if (!history.state || !history.state.screen) {
+    history.replaceState({ screen: 'selector' }, '', '');
+  }
+
+  // Push state when navigating to app
+  var origSelectPlanogram = selectPlanogram;
+  selectPlanogram = function(id) {
+    origSelectPlanogram(id);
+    history.pushState({ screen: 'app', planogram: id }, '', '');
+  };
+
+  // Push state when showing product detail
+  var origShowProduct = showProduct;
+  showProduct = function(upc, redirectedFrom) {
+    origShowProduct(upc, redirectedFrom);
+    // Only push if overlay actually became visible
+    if (document.getElementById('result-overlay').classList.contains('visible')) {
+      history.pushState({ screen: 'product', upc: upc }, '', '');
+    }
+  };
+
+  // Push state when opening PDF viewer
+  var origOpenPdfViewer = openPdfViewer;
+  openPdfViewer = function() {
+    origOpenPdfViewer();
+    if (document.getElementById('pdf-overlay').classList.contains('visible')) {
+      history.pushState({ screen: 'pdf' }, '', '');
+    }
+  };
+
+  // Handle back button
+  window.addEventListener('popstate', function(e) {
+    var state = e.state;
+
+    // Check what's currently open and close it
+    if (document.getElementById('pdf-overlay').classList.contains('visible')) {
+      closePdfViewer();
+      return;
+    }
+    if (document.getElementById('result-overlay').classList.contains('visible')) {
+      closeResult();
+      return;
+    }
+    // If we're in the app, go back to selector
+    if (!document.getElementById('app-content').classList.contains('hidden')) {
+      showSelector();
+      return;
+    }
+
+    // If we're already at the selector (root), push state to prevent exit
+    // Re-push state so back doesn't leave the app
+    history.pushState({ screen: 'selector' }, '', '');
+  });
+})();
+
+// ==================== SEARCH INDEPENDENCE ====================
+// Ensure PDF search and UPC search operate completely independently
+
+(function() {
+  // When PDF opens, save and clear UPC search state, restore on close
+  var savedUpcSearchValue = '';
+  var savedUpcSearchVisible = false;
+
+  var origOpenPdf = openPdfViewer;
+  openPdfViewer = function() {
+    // Save UPC search state
+    var upcInput = document.getElementById('upc-input');
+    var searchResults = document.getElementById('search-results');
+    savedUpcSearchValue = upcInput ? upcInput.value : '';
+    savedUpcSearchVisible = searchResults ? searchResults.classList.contains('visible') : false;
+
+    origOpenPdf();
+
+    // Clear PDF search on fresh open
+    var pdfInput = document.getElementById('pdf-search-input');
+    if (pdfInput) pdfInput.value = '';
+    var pdfCount = document.getElementById('pdf-search-count');
+    if (pdfCount) pdfCount.textContent = '';
+    var pdfHighlights = document.getElementById('pdf-search-highlights');
+    if (pdfHighlights) pdfHighlights.innerHTML = '';
+  };
+
+  var origClosePdf = closePdfViewer;
+  closePdfViewer = function() {
+    origClosePdf();
+
+    // Restore UPC search state
+    var upcInput = document.getElementById('upc-input');
+    if (upcInput && savedUpcSearchValue) {
+      upcInput.value = savedUpcSearchValue;
+    }
+    if (savedUpcSearchVisible) {
+      var searchResults = document.getElementById('search-results');
+      if (searchResults) searchResults.classList.add('visible');
+    }
+  };
+
+  // Prevent PDF search input from triggering UPC search
+  var pdfSearchInput = document.getElementById('pdf-search-input');
+  if (pdfSearchInput) {
+    pdfSearchInput.addEventListener('keydown', function(e) {
+      e.stopPropagation();
+      if (e.key === 'Escape') {
+        pdfSearchInput.value = '';
+        pdfSearchDebounce();
+      }
+    });
+  }
+})();
+
+// ==================== PDF PINCH-TO-ZOOM ====================
+// Touch-based pinch-to-zoom within the PDF canvas container
+
+(function() {
+  var container = document.getElementById('pdf-canvas-container');
+  if (!container) return;
+
+  var initialDistance = 0;
+  var initialScale = 1.0;
+  var pinching = false;
+  var zoomToastEl = document.getElementById('pdf-zoom-toast');
+  var zoomToastTimer = null;
+
+  function getDistance(t1, t2) {
+    var dx = t1.clientX - t2.clientX;
+    var dy = t1.clientY - t2.clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+
+  function showZoomToast(scale) {
+    if (!zoomToastEl) return;
+    zoomToastEl.textContent = Math.round(scale * 100) + '%';
+    zoomToastEl.classList.add('visible');
+    clearTimeout(zoomToastTimer);
+    zoomToastTimer = setTimeout(function() {
+      zoomToastEl.classList.remove('visible');
+    }, 800);
+  }
+
+  container.addEventListener('touchstart', function(e) {
+    if (e.touches.length === 2) {
+      pinching = true;
+      container.classList.add('pinch-active');
+      initialDistance = getDistance(e.touches[0], e.touches[1]);
+      initialScale = pdfZoomScale;
+      e.preventDefault();
+    }
+  }, { passive: false });
+
+  container.addEventListener('touchmove', function(e) {
+    if (!pinching || e.touches.length !== 2) return;
+    e.preventDefault();
+
+    var currentDistance = getDistance(e.touches[0], e.touches[1]);
+    var ratio = currentDistance / initialDistance;
+    var newScale = Math.min(PDF_ZOOM_MAX, Math.max(PDF_ZOOM_MIN, +(initialScale * ratio).toFixed(2)));
+
+    if (Math.abs(newScale - pdfZoomScale) >= 0.05) {
+      pdfZoomScale = newScale;
+      document.getElementById('pdf-zoom-level').textContent = Math.round(pdfZoomScale * 100) + '%';
+      showZoomToast(pdfZoomScale);
+    }
+  }, { passive: false });
+
+  container.addEventListener('touchend', function(e) {
+    if (pinching) {
+      pinching = false;
+      container.classList.remove('pinch-active');
+      // Re-render at new zoom level
+      if (pdfDoc) {
+        renderPdfPage(pdfCurrentPage);
+      }
+    }
+  }, { passive: true });
+})();
+
+// ==================== ARIA & ACCESSIBILITY UPDATES ====================
+// Update ARIA states when mode/segment changes
+
+(function() {
+  var origSetMode = setMode;
+  setMode = function(mode) {
+    origSetMode(mode);
+    document.querySelectorAll('.mode-tab').forEach(function(t) {
+      t.setAttribute('aria-selected', t.dataset.mode === mode ? 'true' : 'false');
+    });
+  };
+
+  var origSetSegment = setSegment;
+  setSegment = function(seg, fromSwipe) {
+    origSetSegment(seg, fromSwipe);
+    document.querySelectorAll('.nav-side-btn').forEach(function(t) {
+      var isActive = parseInt(t.dataset.seg) === seg;
+      t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+  };
 })();
 </script>
 </body>
